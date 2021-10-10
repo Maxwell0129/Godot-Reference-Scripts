@@ -19,6 +19,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = max(velocity.x - ACCELERATION, -MAX_SPEED)
 		$AnimatedSprite.play("Walk")
 		$AnimatedSprite.flip_h = true
+	elif Input.is_action_pressed("use"):
+		$AnimatedSprite.play("Use")
 	else:
 		$AnimatedSprite.play("Idle")
 		velocity.x = lerp(velocity.x, 0, 0.2)
