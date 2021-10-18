@@ -6,6 +6,8 @@ const JUMP_FORCE = -500
 var velocity = Vector2.ZERO
 
 func _on_PlayerHurtBox_area_entered(EnemyHurtArea: Area2D) -> void:
+	$PlayerStats.health -= EnemyHurtArea.damage
+
 	if $AnimatedSprite.global_position.x < EnemyHurtArea.global_position.x:
 		velocity.x -= KNOCKBACK
 		Input.action_press("ui_left")
@@ -23,4 +25,7 @@ func _on_PlayerHurtBox_area_entered(EnemyHurtArea: Area2D) -> void:
 func _on_PlayerStompArea_area_entered(_EnemyHitBox: Area2D) -> void:
 	velocity.y = JUMP_FORCE * 0.3
 
-#Signal 'area_entered' needs to be connected to work properly
+func _on_PlayerStats_no_health() -> void:
+	queue_free()
+
+#Signal 'area_entered' and custom signal 'no_health' needs to be connected to work properly
